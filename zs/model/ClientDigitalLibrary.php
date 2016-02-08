@@ -2,7 +2,8 @@
 
 namespace Zs\Model;
 
-class ClientDigitalLibrary{
+class ClientDigitalLibrary
+{
 
     public function __construct()
     {

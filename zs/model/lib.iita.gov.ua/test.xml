@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="urn:SearchServ"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+                  SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <soapenv:Body>
+        <ns1:searchEprint>
+            <key xsi:type="xsd:string">test</key>
+            <fields xsi:type="ns2:Map">
+                <item>
+                    <key xsi:type="xsd:string">fileds</key>
+                    <value xsi:type="xsd:string">title</value>
+                </item>
+            </fields>
+            <date_range xsi:type="xsd:string">2000-2016</date_range>
+            <order xsi:type="xsd:string">-date</order>
+        </ns1:searchEprint>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SearchServ"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+<soapenv:Header/>
+<soapenv:Body>
+    <urn:searchEprint soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+        <key xsi:type="xsd:string">test</key>
+        <fields xsi:type="wsdl:ArrayOfstring" soapenc:arrayType="xsd:string[]"
+                xmlns:wsdl="http://alto2.vl-software.com/wsdl/"/>
+        <date_range xsi:type="xsd:string">2000-2016</date_range>
+        <order xsi:type="xsd:string">-date</order>
+    </urn:searchEprint>
+</soapenv:Body>
+</soapenv:Envelope>
