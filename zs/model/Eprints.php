@@ -26,7 +26,7 @@ class Eprints extends IObject
         $this->key = 'test';
 //data range in form yyyy- or -yyyy or yyyy-zzzz
         $this->data_range = '2000-2016';
-$result_search = $this->search();
+        $result_search = $this->search();
 
         var_dump($result_search);
 
@@ -34,7 +34,8 @@ $result_search = $this->search();
     }
 
 
-    private function search(){
+    private function search()
+    {
 
         /* TODO create dynamic link for wsdl file
          */
@@ -42,17 +43,13 @@ $result_search = $this->search();
 //        new \SoapClient();
 
         try {
-            $client = new LocalSoapClient(__DIR__ . "/lib.iita.gov.ua/SearchServ.wsdl",
+            ini_set('soap.wsdl_cache_enable', 0);
+            ini_set('soap.wsdl_cache_ttl', 0);
+            $client = new LocalSoapClient("http://192.168.99.100/wsdl/lib.iita.gov.ua/SearchServ.wsdl",
                 array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
-
-
-
-//        $client = new SoapClient("SearchServ2.wsdl",
-//            array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
 
             if (isset($this->data_range)) {
                 $result = $client->searchEprint($this->key, $this->fileds, $this->data_range, $this->order);
-
 
             } else {
                 $result = $client->searchEprint($this->key, $this->fileds, $this->order);
@@ -60,16 +57,14 @@ $result_search = $this->search();
 //            var_dump($client->__getLastRequest());
 //            var_dump($client->__getLastResponse());
 //            var_dump($client->__getLastRequest());
-        }
-        catch(SoapFault $e){
+        } catch (SoapFault $e) {
             var_dump($e);
-//            var_dump($client->__getLastRequest());
-//            var_dump($client->__getLastResponse());
+
 
         }
         //debug
 //        var_dump($client->__getLastResponse());
-        die;
+
         return $result;
     }
 
@@ -77,113 +72,111 @@ $result_search = $this->search();
 }
 
 
+class LocalSoapClient extends \SoapClient
+{
 
-class LocalSoapClient extends \SoapClient {
-
-    function __construct($wsdl, $options) {
+    function __construct($wsdl, $options)
+    {
         parent::__construct($wsdl, $options);
 
     }
 
-    function __doRequest($request, $location, $action, $version, $one_way = 0) {
+    function __doRequest($request, $location, $action, $version, $one_way = 0)
+    {
+//        $request=preg_replace('/SOAP-ENV:Envelope/', 'soapenv:Envelope', $request);
 
-
-        $request=preg_replace('/SOAP-ENV:Envelope/', 'soapenv:Envelope', $request);
-        $request=preg_replace('/xmlns:SOAP-ENV/', 'xmlns:soapenv', $request);
-        $request=preg_replace('/SOAP-ENV:Body/', 'soapenv:Body', $request);
-        $request=preg_replace('/xmlns:SOAP-ENC/', 'soapenv:Body', $request);
-
-        var_dump($request);
-        die;
-        $ret = parent::__doRequest($request, $location, $action, $version);
-//        ob_start();
-//      echo  $request;
-//        $response = ob_get_contents();
-//        ob_end_clean();
-        return $ret;
+//        if ($this->debug){
+//            var_dump($request);
+//            die;
+        /**
+         * delete BOM from request
+         */
+        $xml = explode("\r\n", parent::__doRequest($request, $location, $action, $version));
+        $response = preg_replace( '/^(\x00\x00\xFE\xFF|\xFF\xFE\x00\x00|\xFE\xFF|\xFF\xFE|\xEF\xBB\xBF)/', "", $xml[5] );
+        return $response;
     }
 
 }
 
-class EpClient
-{
-
-    public $id;
-    public $fileds;
-    public $key;
-    public $title;
-    public $creators_name;
-    public $date;
-    public $abstract;
-    public $url_file;
-    public $type;
-    public $data_range = "1980-";
-    public $order = "-date";
-
-
-    private $ePrintsHost = 'http://eprints.zu.edu.ua';
-
-
-    public function search()
-    {
-//        $client = new SoapClient($this->ePrintsHost."/wsdl/SearchServ.wsdl", array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
-        $client = new SoapClient("SearchServ2.wsdl",
-            array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
-
-        if (isset($this->data_range)) {
-            $result = $client->searchEprint($this->key, $this->fileds, $this->data_range, $this->order);
-        } else {
-            $result = $client->searchEprint($this->key, $this->fileds, $this->order);
-        }
-        //debug
-        //var_dump($client->__getLastRequest());
-        return $result;
-    }
-
-
-    public function getMetadata()
-    {
-        $client = new SoapClient($this->ePrintsHost . "/wsdl/MetaDataServ.wsdl",
-            array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
-
-
-        $ObjectXML = '<listId>';
-        foreach ($this->id as $id) {
-            $ObjectXML .= '<item>' . $id . '</item>';
-        }
-        $ObjectXML .= '</listId>';
-        $ItemObject = new SoapVar($ObjectXML, XSD_ANYXML);
-
-        $result = $client->getEprint($ItemObject);
+//class EpClient
+//{
+//
+//    public $id;
+//    public $fileds;
+//    public $key;
+//    public $title;
+//    public $creators_name;
+//    public $date;
+//    public $abstract;
+//    public $url_file;
+//    public $type;
+//    public $data_range = "1980-";
+//    public $order = "-date";
+//
+//
+//    private $ePrintsHost = 'http://eprints.zu.edu.ua';
+//
+//
+//    public function search()
+//    {
+////        $client = new SoapClient($this->ePrintsHost."/wsdl/SearchServ.wsdl", array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
+//        $client = new SoapClient("SearchServ2.wsdl",
+//            array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
+//
+//        if (isset($this->data_range)) {
+//            $result = $client->searchEprint($this->key, $this->fileds, $this->data_range, $this->order);
+//        } else {
+//            $result = $client->searchEprint($this->key, $this->fileds, $this->order);
+//        }
+//        //debug
+//        //var_dump($client->__getLastRequest());
+//        return $result;
+//    }
+//
+//
+//    public function getMetadata()
+//    {
+//        $client = new SoapClient($this->ePrintsHost . "/wsdl/MetaDataServ.wsdl",
+//            array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
+//
+//
+//        $ObjectXML = '<listId>';
+//        foreach ($this->id as $id) {
+//            $ObjectXML .= '<item>' . $id . '</item>';
+//        }
+//        $ObjectXML .= '</listId>';
+//        $ItemObject = new SoapVar($ObjectXML, XSD_ANYXML);
+//
+//        $result = $client->getEprint($ItemObject);
+////        var_dump($client->__getLastRequest());
+//        return $result;
+//    }
+//
+//
+//    public function put()
+//    {
+//
+//        $ObjectXML = '<creators_name>';
+//        foreach ($this->creators_name as $creators) {
+//            $ObjectXML .= '<item>
+//                        <given xsi:type="xsd:string">' . $creators['given'] . '</given>
+//                <family xsi:type="xsd:string">' . $creators['family'] . '</family>
+//            </item>';
+//        }
+//        $ObjectXML .= '</creators_name>';
+//
+//        $ItemObject = new SoapVar($ObjectXML, XSD_ANYXML);
+//        $client = new SoapClient($this->ePrintsHost . "/wsdl/putEprints_string.wsdl",
+//            array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
+//        //$client = new SoapClient("putEprints2_string.wsdl", array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
+//        $result = $client->putEprint($this->title, $ItemObject, $this->date, $this->abstract, $this->url_file,
+//            $this->type);
 //        var_dump($client->__getLastRequest());
-        return $result;
-    }
-
-
-    public function put()
-    {
-
-        $ObjectXML = '<creators_name>';
-        foreach ($this->creators_name as $creators) {
-            $ObjectXML .= '<item>
-                        <given xsi:type="xsd:string">' . $creators['given'] . '</given>
-                <family xsi:type="xsd:string">' . $creators['family'] . '</family>
-            </item>';
-        }
-        $ObjectXML .= '</creators_name>';
-
-        $ItemObject = new SoapVar($ObjectXML, XSD_ANYXML);
-        $client = new SoapClient($this->ePrintsHost . "/wsdl/putEprints_string.wsdl",
-            array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
-        //$client = new SoapClient("putEprints2_string.wsdl", array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
-        $result = $client->putEprint($this->title, $ItemObject, $this->date, $this->abstract, $this->url_file,
-            $this->type);
-        var_dump($client->__getLastRequest());
-        return $result;
-    }
-
-
-}
+//        return $result;
+//    }
+//
+//
+//}
 //
 //
 //$search = new EpClient();
