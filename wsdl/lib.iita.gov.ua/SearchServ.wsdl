@@ -2,10 +2,11 @@
 <!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Anand (Home) -->
 <definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eprints.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="searchEprint" targetNamespace="http://eprints.org/wsdl/">
 	<types>
-		<schema xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://eprints.org/wsdl/">
-			<simpleType name="TypeOfEprints">
+		<schema xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ep="http://eprints.org/wsdl/" targetNamespace="http://eprints.org/wsdl/">
+			<simpleType name="AllowEprints">
 				<restriction base="xsd:string">
 					<enumeration value="archive"/>
+					<enumeration value="ebox"/>
 				</restriction>
 			</simpleType>
 			<complexType name="creators">
@@ -19,6 +20,9 @@
 					<element name="name" type="xsd:string"/>
 					<element name="id" type="xsd:string"/>
 				</sequence>
+			</complexType>
+			<complexType name="TypeOfEprints">
+				<attribute name="value" type="tns:AllowEprints" use="optional" default="archive"/>
 			</complexType>
 			<complexType name="ArrayOfstring">
 				<complexContent>
@@ -40,7 +44,8 @@
 		<part name="key" type="xsd:string"/>
 		<part name="fields" type="tns:ArrayOfstring"/>
 		<part name="date_range" type="xsd:string"/>
-		<part name="order" type="tns:TypeOfEprints"/>
+		<part name="order" type="xsd:string"/>
+		<part name="type" type="xsd:string"/>
 	</message>
 	<message name="searchEprintResponse">
 		<part name="id" type="tns:ListOfID"/>
