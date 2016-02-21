@@ -8,8 +8,13 @@
 					<element name="someArray" maxOccurs="unbounded">
 						<complexType>
 							<sequence>
-								<element name="item"/>
+								<element name="item">
+									<complexType>
+										<attribute name="lang" type="string"/>
+									</complexType>
+								</element>
 							</sequence>
+							<attribute name="lang" type="string"/>
 						</complexType>
 					</element>
 				</sequence>

@@ -4,18 +4,36 @@ namespace Zs\Model;
 class Eprints extends IObject
 {
 
-
+    /**
+     * @var array ID
+     */
     public $id;
+    /**
+     * @var array
+     */
     public $fileds;
     public $key;
     public $title;
+    /**
+     * Type of eprints
+     * Allowed value inbox, buffer, archive, deletion
+     * @var string
+     */
+    public $typeIo;
     public $creators_name;
     public $date;
     public $abstract;
     public $url_file;
-    public $type;
+
     public $data_range = "1980-";
     public $order = "-date";
+
+    public $debug = false;
+
+    public function __construct()
+    {
+        $this->debug = true;
+    }
 
 
     public function LoadMetadata()
@@ -23,11 +41,14 @@ class Eprints extends IObject
 
 
         $this->fileds = array('fileds' => 'title');
-        $this->key = 'test';
+        $this->key = '*';
 //data range in form yyyy- or -yyyy or yyyy-zzzz
         $this->data_range = '2000-2016';
-        $result_search = $this->search();
 
+        $this->typeIo = 'buffer';
+        $ids = $this->search();
+
+        $result_search = $this->getMetadata($ids);
         var_dump($result_search);
 
 
@@ -49,7 +70,8 @@ class Eprints extends IObject
                 array("trace" => 1, "exception" => 0, 'cache_wsdl' => WSDL_CACHE_NONE));
 
             if (isset($this->data_range)) {
-                $result = $client->searchEprint($this->key, $this->fileds, $this->data_range, $this->order);
+                $result = $client->searchEprint($this->key, $this->fileds, $this->data_range, $this->order,
+                    $this->typeIo);
 
             } else {
                 $result = $client->searchEprint($this->key, $this->fileds, $this->order);
@@ -69,7 +91,71 @@ class Eprints extends IObject
     }
 
 
+    public function getMetadata($ids)
+    {
+        ini_set('soap.wsdl_cache_enable', 0);
+        ini_set('soap.wsdl_cache_ttl', 0);
+        $options = array(
+            'classmap' => array(
+                'campaign' => 'MY_Campaign',
+            )
+        );
+        $client = new LocalSoapClient("http://192.168.99.100/wsdl/lib.iita.gov.ua/MetaDataServ2.wsdl",
+            array(
+                "trace" => 1,
+                "exception" => 0,
+                'cache_wsdl' => WSDL_CACHE_NONE,
+
+            ));
+
+
+        $ObjectXML = '<listId>';
+        foreach ($ids as $id) {
+            $ObjectXML .= '<item>' . $id . '</item>';
+        }
+        $ObjectXML .= '</listId>';
+        $ItemObject = new \SoapVar($ObjectXML, XSD_ANYXML);
+
+        $result = $client->getEprint($ItemObject);
+//        var_dump($client->__getLastRequest());
+
+
+       // var_dump($client->__getLastResponse());
+
+        $obj = simplexml_load_string($client->__getLastResponse());
+//var_dump($result);
+
+        $xml=$obj->children('http://schemas.xmlsoap.org/soap/envelope/')->Body->children('urn:MetaDataServ');
+
+var_dump($xml);
+
+foreach ($xml->getEprintResponse->items->ResourcesList as $item)
+{
+//    var_dump($item->TitleList->someArray->item);
+    foreach($item->TitleList->someArray->item as $title){
+        var_dump( base64_decode($title));
+        var_dump( $title->attributes()->lang);
+
 }
+}
+
+
+     //   var_dump($xml->getEprintResponse->items->ResourcesList->TitleList);
+//        var_dump($xml);
+
+//        foreach($obj->children('http://schemas.xmlsoap.org/soap/envelope/')->Body->children('urn:MetaDataServ')->items->ResourcesList as $rate)
+//        {
+//          var_dump($rate);
+//        }
+//        var_dump($result->ArrayOfItems());
+        //var_dump($result->ResourcesList[0]->TitleList);
+        die('eeeeeeeee');
+        return $result;
+    }
+
+
+}
+
 
 
 class LocalSoapClient extends \SoapClient
@@ -85,14 +171,19 @@ class LocalSoapClient extends \SoapClient
     {
 //        $request=preg_replace('/SOAP-ENV:Envelope/', 'soapenv:Envelope', $request);
 
-//        if ($this->debug){
-//            var_dump($request);
-//            die;
+        //   if ($this->debug) {
+        var_dump($request);
+
+        // }
         /**
          * delete BOM from request
          */
+
+
         $xml = explode("\r\n", parent::__doRequest($request, $location, $action, $version));
-        $response = preg_replace( '/^(\x00\x00\xFE\xFF|\xFF\xFE\x00\x00|\xFE\xFF|\xFF\xFE|\xEF\xBB\xBF)/', "", $xml[5] );
+
+        var_dump($xml);
+        $response = preg_replace('/^(\x00\x00\xFE\xFF|\xFF\xFE\x00\x00|\xFE\xFF|\xFF\xFE|\xEF\xBB\xBF)/', "", $xml[5]);
         return $response;
     }
 

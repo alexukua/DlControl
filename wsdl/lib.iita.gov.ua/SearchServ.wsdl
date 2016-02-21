@@ -45,7 +45,7 @@
 		<part name="fields" type="tns:ArrayOfstring"/>
 		<part name="date_range" type="xsd:string"/>
 		<part name="order" type="xsd:string"/>
-		<part name="type" type="xsd:string"/>
+		<part name="typeIo" type="xsd:string"/>
 	</message>
 	<message name="searchEprintResponse">
 		<part name="id" type="tns:ListOfID"/>

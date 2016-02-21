@@ -1,36 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="urn:SearchServ"
-                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
-                  SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-    <soapenv:Body>
-        <ns1:searchEprint>
-            <key xsi:type="xsd:string">test</key>
-            <fields xsi:type="ns2:Map">
-                <item>
-                    <key xsi:type="xsd:string">fileds</key>
-                    <value xsi:type="xsd:string">title</value>
-                </item>
-            </fields>
-            <date_range xsi:type="xsd:string">2000-2016</date_range>
-            <order xsi:type="xsd:string">-date</order>
-        </ns1:searchEprint>
-    </soapenv:Body>
-</soapenv:Envelope>
+<soap:Envelope soap:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               xmlns:namesp2="http://namespaces.soaplite.com/perl"
+               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soap:Body>
+        <getEprintResponse xmlns="urn:MetaDataServ">
+            <items soapenc:arrayType="namesp2:SomeObject[6]" xsi:type="namesp2:ArrayOfItems">
+                <ResourcesList xsi:type="namesp2:SomeObject">
+                    <title xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJiMDI1ODgp</title>
+                    <type xsi:type="xsd:base64Binary">Ym9va19zZWN0aW9u</type>
+                    <abstract xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJiMDY5Mzgp</abstract>
+                    <keywords xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJiMDFkYzAp</keywords>
+                    <date xsi:type="xsd:base64Binary">MjAxNQ==</date>
+                    <CreatorsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">0JPRg9GA0LvRlNCy0LAsINCiLtChLg==</item>
+                        </someArray>
+                    </CreatorsList>
+                    <SubjectsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">MSBQaGlsb3NvcGh5LiBQc3ljaG9sb2d5</item>
+                        </someArray>
+                    </SubjectsList>
+                    <TitleList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item lang="uk" xsi:type="xsd:base64Binary">
+                                0JLRltC00L/QvtCy0ZbQtNCw0LvRjNC90ZbRgdGC0Ywg0ZYg0YHQvtCy0ZbRgdGC0Ywg0YMg0LfQtNCw0YLQvdC+0YHRgtGWINC+0YHQvtCx0LjRgdGC0L7RgdGC0ZYg0LTQviDQs9C10YDQvtGX0YfQvdC+0LPQviDQstGH0LjQvdC60YM=
+                            </item>
+                            <item lang="en" xsi:type="xsd:base64Binary">
+                                UmVzcG9uc2liaWxpdHkgYW5kIGNvbnNjaWVuY2UgaW4gdGhlIGFiaWxpdHkgb2YgYSBoZXJvaWMgYWN0
+                            </item>
+                        </someArray>
+                    </TitleList>
+                    <relation xsi:type="xsd:anyURI">http://lib.iitta.gov.ua/106627</relation>
+                </ResourcesList>
+                <ResourcesList xsi:type="namesp2:SomeObject">
+                    <title xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZTg4NjAp</title>
+                    <type xsi:type="xsd:base64Binary">YXJ0aWNsZQ==</type>
+                    <abstract xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZDIyZjgp</abstract>
+                    <keywords xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZTg3Yjgp</keywords>
+                    <date xsi:type="xsd:base64Binary">MjAxNQ==</date>
+                    <CreatorsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">
+                                0JDQvdGW0YnQtdC90LrQviwg0J7Qu9C10L3QsCDQktCw0LvQtdGA0ZbRl9Cy0L3QsA==
+                            </item>
+                        </someArray>
+                    </CreatorsList>
+                    <SubjectsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">
+                                MzA0IFNvY2lhbCBxdWVzdGlvbnMuIFNvY2lhbCBwcmFjdGljZS4gQ3VsdHVyYWwgcHJhY3RpY2UuIFdheSBvZiBsaWZlIChMZWJlbnN3ZWlzZSk=
+                            </item>
+                            <item xsi:type="xsd:base64Binary">MzcgRWR1Y2F0aW9u</item>
+                            <item xsi:type="xsd:base64Binary">
+                                Mzc0IEVkdWNhdGlvbiBhbmQgdHJhaW5pbmcgb3V0IG9mIHNjaG9vbC4gRnVydGhlciBlZHVjYXRpb24=
+                            </item>
+                        </someArray>
+                    </SubjectsList>
+                    <TitleList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item lang="uk" xsi:nil="true" xsi:type="xsd:base64Binary"/>
+                        </someArray>
+                    </TitleList>
+                    <relation xsi:type="xsd:anyURI">http://lib.iitta.gov.ua/10671</relation>
+                </ResourcesList>
+                <ResourcesList xsi:type="namesp2:SomeObject">
+                    <title xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZTFmYzAp</title>
+                    <type xsi:type="xsd:base64Binary">YXJ0aWNsZQ==</type>
+                    <abstract xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZWQwNjAp</abstract>
+                    <keywords xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZmM1YjAp</keywords>
+                    <date xsi:type="xsd:base64Binary">MjAxNA==</date>
+                    <CreatorsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">0JHQsNGA0LvQsNC00LjQvCwg0JIu0Jwu</item>
+                        </someArray>
+                    </CreatorsList>
+                    <SubjectsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">
+                                Mzc0IEVkdWNhdGlvbiBhbmQgdHJhaW5pbmcgb3V0IG9mIHNjaG9vbC4gRnVydGhlciBlZHVjYXRpb24=
+                            </item>
+                            <item xsi:type="xsd:base64Binary">Mzc5LjggTGVpc3VyZQ==</item>
+                        </someArray>
+                    </SubjectsList>
+                    <TitleList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item lang="uk" xsi:type="xsd:base64Binary">
+                                0KHRg9GH0LDRgdC90ZYg0L/RgNC+0LHQu9C10LzQuCDRltC90YTQvtGA0LzQsNGG0ZbQudC90L7RlyDQv9GW0LTRgtGA0LjQvNC60Lgg0L3QtdGE0L7RgNC80LDQu9GM0L3QvtGXINC+0YHQstGW0YLQuCDQtNGW0YLQtdC5INGWINC80L7Qu9C+0LTRlg==
+                            </item>
+                            <item lang="en" xsi:type="xsd:base64Binary">
+                                TW9kZXJuIHByb2JsZW1zIG9mIGluZm9ybWF0aW9uIHN1cHBvcnQgbm9uLWZvcm1hbCBlZHVjYXRpb24gb2YgY2hpbGRyZW4gYW5kIHlvdXRo
+                            </item>
+                        </someArray>
+                    </TitleList>
+                    <relation xsi:type="xsd:anyURI">http://lib.iitta.gov.ua/10344</relation>
+                </ResourcesList>
+                <ResourcesList xsi:type="namesp2:SomeObject">
+                    <title xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZmJlYjgp</title>
+                    <type xsi:type="xsd:base64Binary">YXJ0aWNsZQ==</type>
+                    <abstract xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZjM2Yjgp</abstract>
+                    <keywords xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZWZjNTgp</keywords>
+                    <date xsi:type="xsd:base64Binary">MjAxNA==</date>
+                    <CreatorsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">0JPRg9GA0LvRlNCy0LAsINCiLtChLg==</item>
+                        </someArray>
+                    </CreatorsList>
+                    <SubjectsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">MSBQaGlsb3NvcGh5LiBQc3ljaG9sb2d5</item>
+                        </someArray>
+                    </SubjectsList>
+                    <TitleList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item lang="uk" xsi:type="xsd:base64Binary">
+                                0JTQuNGC0LjQvdGB0YLQstC+INC00L7Qt9GA0ZbQstCw0ZQg0LIg0LTRltGC0Y/RhQ==
+                            </item>
+                        </someArray>
+                    </TitleList>
+                    <relation xsi:type="xsd:anyURI">http://lib.iitta.gov.ua/106557</relation>
+                </ResourcesList>
+                <ResourcesList xsi:type="namesp2:SomeObject">
+                    <title xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZWNlYjAp</title>
+                    <type xsi:type="xsd:base64Binary">YXJ0aWNsZQ==</type>
+                    <abstract xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJiMDE4ODAp</abstract>
+                    <keywords xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZjg0ZTAp</keywords>
+                    <date xsi:type="xsd:base64Binary">MjAxNA==</date>
+                    <CreatorsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">0KHQtdC80LXRgNGW0LrQvtCyLCDQoS7Qni4=</item>
+                            <item xsi:type="xsd:base64Binary">0KDQsNGI0LXQstGB0YzQutCwLCDQnS4g0JIu</item>
+                            <item xsi:type="xsd:base64Binary">0JrRltGP0L3QvtCy0YHRjNC60LAsINCdLtCcLg==</item>
+                        </someArray>
+                    </CreatorsList>
+                    <SubjectsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">
+                                Mzc4IEhpZ2hlciBlZHVjYXRpb24uIFVuaXZlcnNpdGllcy4gQWNhZGVtaWMgc3R1ZHk=
+                            </item>
+                        </someArray>
+                    </SubjectsList>
+                    <TitleList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item lang="uk" xsi:type="xsd:base64Binary">
+                                0JXRgtCw0L/QuCDRgNC+0LfQstC40YLQutGDINGC0LXQvtGA0ZbRlyDRliDQvNC10YLQvtC00LjQutC4INCy0LjQutC+0YDQuNGB0YLQsNC90L3RjyDRltC90YTQvtGA0LzQsNGG0ZbQudC90L4t0LrQvtC80YPQvdGW0LrQsNGG0ZbQudC90LjRhSDRgtC10YXQvdC+0LvQvtCz0ZbQuSDRgyDQvdCw0LLRh9Cw0L3QvdGWINCy0LjRidC+0Zcg0LzQsNGC0LXQvNCw0YLQuNC60Lgg0YHRgtGD0LTQtdC90YLRltCyINGW0L3QttC10L3QtdGA0L3QuNGFINGB0L/QtdGG0ZbQsNC70YzQvdC+0YHRgtC10Lkg0YMg0KHQv9C+0LvRg9GH0LXQvdC40YUg0KjRgtCw0YLQsNGFINCQ0LzQtdGA0LjQutC4
+                            </item>
+                            <item lang="en" xsi:type="xsd:base64Binary">
+                                RGV2ZWxvcG1lbnQgb2YgdGhlb3J5IGFuZCBtZXRob2RzIG9mIHVzZSBvZiBpbmZvcm1hdGlvbiBhbmQgY29tbXVuaWNhdGlvbiB0ZWNobm9sb2dpZXMgaW4gdGVhY2hpbmcgbWF0aGVtYXRpY3Mgb2YgZW5naW5lZXJpbmcgc3BlY2lhbGl0aWVzIHN0dWRlbnRzIGluIHRoZSB1bml0ZWQgc3RhdGVz
+                            </item>
+                        </someArray>
+                    </TitleList>
+                    <relation xsi:type="xsd:anyURI">http://lib.iitta.gov.ua/106619</relation>
+                </ResourcesList>
+                <ResourcesList xsi:type="namesp2:SomeObject">
+                    <title xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJhZWY0MDAp</title>
+                    <type xsi:type="xsd:base64Binary">YXJ0aWNsZQ==</type>
+                    <abstract xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJiMDFmODgp</abstract>
+                    <keywords xsi:type="xsd:base64Binary">QVJSQVkoMHg3ZmE1ZDJlZGQ4YTAp</keywords>
+                    <date xsi:type="xsd:base64Binary">MjAxMy0wMi0yNw==</date>
+                    <CreatorsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">UHJva2hvciwgSS5QLg==</item>
+                        </someArray>
+                    </CreatorsList>
+                    <SubjectsList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item xsi:type="xsd:base64Binary">
+                                Mzc4IEhpZ2hlciBlZHVjYXRpb24uIFVuaXZlcnNpdGllcy4gQWNhZGVtaWMgc3R1ZHk=
+                            </item>
+                        </someArray>
+                    </SubjectsList>
+                    <TitleList xsi:type="namesp2:SomeObject">
+                        <someArray xsi:type="namesp2:ArrayOf_SomeObject">
+                            <item lang="en" xsi:type="xsd:base64Binary">
+                                Z292ZXJubWVudCByZWd1bGF0aW9uIG9mIHRoZSBwcml2YXRlIHNlY3RvciBpbiBoaWdoZXIgZWR1Y2F0aW9uIG9mIFVrcmFpbmU=
+                            </item>
+                        </someArray>
+                    </TitleList>
+                    <relation xsi:type="xsd:anyURI">http://lib.iitta.gov.ua/8445</relation>
+                </ResourcesList>
+            </items>
+        </getEprintResponse>
+    </soap:Body>
+</soap:Envelope>' (length=8836)
 
-<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="urn:SearchServ"
-                   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
-                   xmlns:ns2="http://alto2.vl-software.com/wsdl/"
-                   SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-<SOAP-ENV:Body>
-    <ns1:searchEprint>
-        <key xsi:type="xsd:string">test</key>
-        <fields SOAP-ENC:arrayType="xsd:string[1]" xsi:type="ns2:ArrayOfstring">
-            <item xsi:type="xsd:string">title</item>
-        </fields>
-        <date_range xsi:type="xsd:string">2000-2016</date_range>
-        <order xsi:type="xsd:string">-date</order>
-    </ns1:searchEprint>
-</SOAP-ENV:Body>
-</SOAP-ENV:Envelope>

@@ -7,6 +7,12 @@ namespace Zs\Model;
 class IObject
 {
 
+
+    public function __construct($id)
+    {
+        $this->setId($id);
+    }
+
     /**
      * Get ID Information Object
      * @return mixed
@@ -25,6 +31,23 @@ class IObject
     {
         return $this->id = $id;
     }
+
+    public function setTitle($value, $lang)
+    {
+
+        $t = new \stdClass();
+        $this->title[] = array('title' => $t->$value, 'lang' => $t->$lang);
+
+        return $this->title;
+    }
+
+
+    public function getTitle($value, $lang)
+    {
+
+        return $this->title;
+    }
+
 
 //    /**
 //     *
